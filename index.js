@@ -1,6 +1,5 @@
 const BufferLayout = require("@solana/buffer-layout")
 const solanaWeb3 = require("@solana/web3.js")
-const { TransactionInstruction, Transaction } = require("@solana/web3.js")
 const bs58 = require("bs58")
 const { Buffer } = require("buffer")
 
@@ -77,19 +76,19 @@ const keys = [
 ]
 
 // create instruction
-const transferInstruction =  new TransactionInstruction({
+const transferInstruction =  new solanaWeb3.TransactionInstruction({
     keys,
     programId: solanaWeb3.SystemProgram.programId,
     data: dataEncoded
 })
 
 // create transaction
-const transaction = new Transaction().add(transferInstruction)
+const transaction = new solanaWeb3.Transaction().add(transferInstruction)
 
 // send transaction
 async function sendTransaction() {
     const signature = await solanaWeb3.sendAndConfirmTransaction(connection, transaction, [keyPair])
-    console.log(signature)
+    console.log("signature", signature)
 }
 
 sendTransaction()
