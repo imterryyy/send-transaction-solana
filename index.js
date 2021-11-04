@@ -57,6 +57,7 @@ const layout = BufferLayout.struct([
     BufferLayout.ns64('lamports'),
 ])
 
+// index = 2 is transfer native token in system program
 const type = {
     index: 2,
     layout 
@@ -67,7 +68,7 @@ const fields = {
 }
 
 const dataEncoded = encode(type, fields)
-const dataDecoded = decode(type, dataEncoded)
+//const dataDecoded = decode(type, dataEncoded)
 
 // keys
 const keys = [
@@ -88,7 +89,7 @@ const transaction = new solanaWeb3.Transaction().add(transferInstruction)
 // send transaction
 async function sendTransaction() {
     const signature = await solanaWeb3.sendAndConfirmTransaction(connection, transaction, [keyPair])
-    console.log("signature", signature)
+    console.log("signature:", signature)
 }
 
 sendTransaction()
